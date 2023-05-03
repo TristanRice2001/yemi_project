@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>{{ cms_data["website_title_tag"] }}</title>
+  </head>
+  <body>
+    <header class="header">
+      <img
+        src="{{ format_cms_image(cms_data['title_image']) }}"
+        alt="Title background image"
+        class="bg-cover-image header__image"
+      />
+      <div class="header__content">
+        <div class="header__socials">
+          <a target="_blank" href="{{ cms_data['instagram_url'] }}"
+            ><img src="/img/icon-instagram.svg" alt="Instagram icon" />
+          </a>
+          <a target="_blank" href="{{ cms_data['soundcloud_url'] }}"
+            ><img src="/img/icon-soundcloud.svg" alt="Soundcloud icon"
+          /></a>
+          <a target="_blank" href="{{ cms_data['itunes_url'] }}"
+            ><img src="/img/icon-applemusic.svg" alt="Itunes logo"
+          /></a>
+          <a target="_blank" href="{{ cms_data['spotify_url'] }}"
+            ><img src="/img/icon-spotify.svg" alt="Spotify logo"
+          /></a>
+          <a target="_blank" href="{{ cms_data['youtube_url'] }}"
+            ><img src="/img/icon-youtube.svg" alt="Youtube logo"
+          /></a>
+        </div>
+        <h1 class="header__title">{{ cms_data["title"] }}</h1>
+        <div class="header__email-signup">
+          <p class="header__email-callout">SIGN UP FOR LATEST UPDATES</p>
+          <div class="header__email-input">
+            <form action="" id="email-input-form">
+              <input
+                id="user-email"
+                type="email"
+                placeholder="ENTER YOUR EMAIL"
+              /><button type="submit" disabled="true" id="email-submit">
+                <span>SIGN UP</span>
+
+                <svg
+                  class="header__email-loading-svg hidden"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="xMidYMid"
+                  style="margin: auto; shape-rendering: auto"
+                  viewBox="0 0 100 100"
+                >
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="35"
+                    fill="none"
+                    stroke="#000"
+                    stroke-dasharray="164.93361431346415 56.97787143782138"
+                    stroke-width="10"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      dur="1s"
+                      keyTimes="0;1"
+                      repeatCount="indefinite"
+                      type="rotate"
+                      values="0 50 50;360 50 50"
+                    />
+                  </circle>
+                </svg>
+                <svg
+                  class="header__email-completed-svg hidden"
+                  width="207"
+                  height="153"
+                  viewBox="0 0 207 153"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.5 82L56.5 136L198.5 9"
+                    stroke="black"
+                    stroke-width="23"
+                  />
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+    <nav class="navbar">
+      <a href="#home" class="navbar__link medium-text">HOME</a
+      ><a href="#about" class="navbar__link medium-text">ABOUT</a
+      ><a href="#music" class="navbar__link medium-text">MUSIC</a
+      ><a href="#contact" class="navbar__link medium-text">CONTACT</a>
+    </nav>
+    <main>
+      <div class="home" id="home">
+        <img
+          src="{{ format_cms_image(cms_data['title_image']) }}"
+          alt="Home background image"
+          class="home__background bg-cover-image"
+        />
+        <div class="home__content">
+          <img
+            src="{{ format_cms_image(cms_data['home_image']) }}"
+            alt="Home image"
+            class="home__image"
+          />
+          <p class="home__text medium-text">{{ cms_data['home_content'] }}</p>
+          <button class="callout-btn home__callout-btn">MUSIC</button>
+        </div>
+      </div>
+      <h3 class="lined-title">ABOUT</h3>
+      <div class="about" id="about">
+        <p class="medium-text about__content dynamic-text-color">
+          {{ cms_data['about_content_1'] }}
+        </p>
+        <div class="about__separator"></div>
+        <p class="medium-text about__content dynamic-text-color">
+          {{ cms_data['about_content_2'] }}
+        </p>
+      </div>
+      <h3 class="lined-title">MUSIC</h3>
+      <div class="featured-song">
+        <h3 class="low-priority-title">Latest music</h3>
+        <div class="featured-song__section">
+          <img
+            src="{{ format_cms_image(cms_data['featured_song_image']) }}"
+            alt="Featured album {{featured_album['name']}}"
+            class="featured-song__image"
+          />
+          <hr />
+        </div>
+        <div class="featured-song__information">
+          <h4 class="medium-text">{{ format_song_name(featured_album) }}</h4>
+          <p class="medium-text featured-song__release-date">
+            Release Date: <span>{{ featured_album['date'] }}</span>
+          </p>
+          <p class="medium-text featured-song__description">
+            {{ cms_data['featured_song_description'] }}
+          </p>
+          <button class="callout-btn callout-button--contrasted">LISTEN</button>
+        </div>
+      </div>
+      <hr class="music-separator" />
+      <div class="recent-music" id="music">
+        <h3 class="low-priority-title recent-music__title">SINGLES & EPs</h3>
+
+        {% for album in recent_albums[:5] %}
+        <div class="recent-music__release">
+          <img
+            src="{{ album['image']['url'] }}"
+            alt="Song logo for {{ album['name'] }}"
+            class="recent-music__song-image"
+          />
+          <p class="medium-text recent-music__song-title">
+            Title: {{ format_song_name(album) }}
+          </p>
+          <p class="medium-text recent-music__date">
+            Release Date: <span>{{ album['date'] }}</span>
+          </p>
+          <a
+            href="https://www.google.com"
+            class="recent-music__song-callout-btn"
+          >
+            <button
+              class="callout-btn recent-music__song-callout-btn callout-button--contrasted"
+            >
+              LISTEN
+            </button>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <h3 class="lined-title" id="contact">Contact</h3>
+      <form class="contact-form">
+        <div class="contact-form__inputs">
+          <div class="contact-form__form-item">
+            <label class="contact-form__label" for="name">NAME</label
+            ><input class="contact-form__input" id="name" type="text" />
+          </div>
+          <div class="contact-form__form-item">
+            <label class="contact-form__label" for="email">EMAIL</label
+            ><input class="contact-form__input" id="email" type="text" />
+          </div>
+          <div class="contact-form__form-item">
+            <label class="contact-form__label" for="message">MESSAGE</label
+            ><textarea
+              class="contact-form__textarea"
+              rows="4"
+              id="message"
+              type="text"
+            ></textarea>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="callout-btn contact-form__submit-btn callout-button--contrasted"
+        >
+          SUBMIT
+        </button>
+      </form>
+      <div class="footer-socials">
+        <a target="_blank" href="{{ cms_data['instagram_url'] }}"
+          ><img src="/img/icon-instagram-black.svg" alt="Instagram icon" />
+        </a>
+        <a target="_blank" href="{{ cms_data['soundcloud_url'] }}"
+          ><img src="/img/icon-soundcloud-black.svg" alt="Soundcloud icon"
+        /></a>
+        <a target="_blank" href="{{ cms_data['itunes_url'] }}"
+          ><img src="/img/icon-applemusic-black.svg" alt="Itunes logo"
+        /></a>
+        <a target="_blank" href="{{ cms_data['spotify_url'] }}"
+          ><img src="/img/icon-spotify-black.svg" alt="Spotify logo"
+        /></a>
+        <a target="_blank" href="{{ cms_data['youtube_url'] }}"
+          ><img src="/img/icon-youtube-black.svg" alt="Youtube logo"
+        /></a>
+      </div>
+    </main>
+    <footer>
+      <p class="copyright-notice">&copy; Copyright. Malik Abdul</p>
+    </footer>
+  </body>
+  <script src="/js/script.js"></script>
+</html>
